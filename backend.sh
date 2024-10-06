@@ -65,7 +65,8 @@ else
 fi
 
 id expense &>>$LOG_FILE
-if [ $? -eq 0 ]; then
+
+if [ $? -ne 0 ]; then
     useradd expense  &>>$LOG_FILE
     validate $? "creating expense user"
 else
