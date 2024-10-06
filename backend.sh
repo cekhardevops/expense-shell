@@ -70,5 +70,5 @@ if [ $? -ne 0 ]; then
     useradd expense  &>>$LOG_FILE
     validate $? "creating expense user"
 else
-    validate $? "user already existed"
+    log_info $? "user already existed"
 fi
