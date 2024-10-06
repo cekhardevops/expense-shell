@@ -62,5 +62,12 @@ validate $? "Enabling mysql service"
 systemctl start mysqld &>>$LOG_FILE
 validate $? "Starting mysql service"
 
-mysql_secure_installation --set-root-pass ExpenseApp@1
-validate $? "setting up root password"
+mysql -h mysql.devsecmlops.online -u root -pExpenseApp@1 -e 'show databases' &>>$LOG_FILE
+
+if [ $? -ne 0 ]; then
+    log_info "Mysql root password is setting up...."
+    mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$LOG_FILE
+    validate $? "setting up root password"
+else
+    log_info "Mysql root password is alreadys setup."
+fi
