@@ -50,7 +50,7 @@ dnf install nginx -y &>>$LOG_FILE
 validate $? "isntalling nginx"
 
 curl -o /tmp/frontend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-frontend-v2.zip &>>$LOG_FILE
-validae $? "downloading source code from repo..."
+validate $? "downloading source code from repo..."
 
 rm -rf /usr/share/nginx/html/*
 
@@ -63,4 +63,4 @@ systemctl enable nginx &>>$LOG_FILE
 validate $? "Enabled nginx"
 
 systemctl restart nginx &>>$LOG_FILE
-validae $? "nginx service started"
+validate $? "nginx service started"
