@@ -68,7 +68,7 @@ validate_user $user_id
 #     exit 1;
 # fi
 
-dnf install mysql-server -y &>>$LOG_FILE
+dnf install mysql-server -y 
 validate $? "installing Mysql server"
 
 systemctl enable mysqld &>>$LOG_FILE
