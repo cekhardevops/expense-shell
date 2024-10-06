@@ -72,3 +72,29 @@ if [ $? -ne 0 ]; then
 else
     log_info  "user already existed"
 fi
+
+mkdir -p /app
+curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip &>>$LOG_FILE
+validate $? "source code downloading"
+cd /app
+rm -rf /app/*
+unzip /tmp/backend.zip 
+
+npm install &>>$LOG_FILE
+validate $? "installing npm build tool"
+
+cp /home/ec2-user/expense-shell/backend.service /etc/systemd/system/backend.service &>>$LOG_FILE
+
+dns install mysql -y &>>$LOG_FILE
+validate $? "mysql client installing"
+
+mysql -h mysql.devsecmlops.online -uroot -pExpenseApp@1 < /app/schema/backend.sql &>>$LOG_FILE 
+
+systemctl daemon-reload &>>$LOG_FILE
+validate $? "reloaded deamon"
+
+systemctl restart backend &>>$LOG_FILE
+validate $? "started backend service"
+
+systemctl enable backend &>>$LOG_FILE
+validate $? "Enabled backend"
