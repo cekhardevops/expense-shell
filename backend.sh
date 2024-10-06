@@ -66,10 +66,9 @@ fi
 
 id expense &>>$LOG_FILE
 
-if [ $? -ne 0 ]; then
+if [ $? -eq 0 ]; then
+    validate $? "user already existed"
+else
     useradd expense  &>>$LOG_FILE
     validate $? "creating expense user"
-else
-    echo "id expense result: $?"
-    validate $? "user already existed"
 fi
