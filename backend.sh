@@ -56,15 +56,23 @@ validate $? "disable default nodejs version"
 dnf module enable nodejs:20 -y  &>>$LOG_FILE
 validate $? "enable nodejs:20 version"
 
-dnf install nodejs -y  &>>$LOG_FILE
-validate $? "installing nodejs"
+dnf list installed nodejs &>>$LOG_FILE
+
+if [ &? -ne 0 ]; then
+    dnf install nodejs -y  &>>$LOG_FILE
+    validate $? "installing nodejs"
+else
+    log_info "nodejs already installed"
+fi
 
 id expense &>>$LOG_FILE
+
+    echo "id expense result: $?"
 
 if [ $? -ne 0 ]; then
     useradd expense  &>>$LOG_FILE
     validate $? "creating expense user"
 else
-    validate $? "user already existed"
     echo "id expense result: $?"
+    validate $? "user already existed"
 fi
