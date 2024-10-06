@@ -20,7 +20,7 @@ validate_user(){
 
 validate(){
     if [ $1 -ne 0 ]; then
-        log_error "$1 is FAILED."
+        log_error "$2 is FAILED."
         exit 1;
     else
         log_info "$2 is SUCCESS"
