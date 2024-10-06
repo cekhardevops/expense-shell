@@ -71,4 +71,4 @@ if [ $? -eq 0 ] then
     validate $? "creating expense user"
 else
     validate $? "user already existed"
-    fi
+fi
