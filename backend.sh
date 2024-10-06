@@ -58,7 +58,7 @@ validate $? "enable nodejs:20 version"
 
 dnf list installed nodejs &>>$LOG_FILE
 
-if [ &? -ne 0 ]; then
+if [ $? -ne 0 ]; then
     dnf install nodejs -y  &>>$LOG_FILE
     validate $? "installing nodejs"
 else
