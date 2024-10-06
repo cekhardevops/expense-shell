@@ -55,9 +55,9 @@ validae $? "downloading source code from repo..."
 rm -rf /usr/share/nginx/html/*
 
 cd /usr/share/nginx/html
-unzip /tmp/frontend.zip
+unzip /tmp/frontend.zip &>>$LOG_FILE
 
-cp /home/ec2-user/expense-shell/expense.conf /etc/nginx/default.d/expense.conf
+cp /home/ec2-user/expense-shell/expense.conf /etc/nginx/default.d/expense.conf &>>$LOG_FILE
 
 systemctl enable nginx &>>$LOG_FILE
 validate $? "Enabled nginx"
