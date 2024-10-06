@@ -20,6 +20,7 @@ validate_user(){
 
 validate(){
     if [ $1 -ne 0 ]; then
+        echo "id expense result: $1"
         log_error "$2 is FAILED."
         exit 1;
     else
@@ -65,4 +66,5 @@ if [ $? -ne 0 ]; then
     validate $? "creating expense user"
 else
     validate $? "user already existed"
+    echo "id expense result: $?"
 fi
