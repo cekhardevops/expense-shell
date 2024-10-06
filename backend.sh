@@ -20,7 +20,6 @@ validate_user(){
 
 validate(){
     if [ $1 -ne 0 ]; then
-        echo "id expense result: $1"
         log_error "$2 is FAILED."
         exit 1;
     else
