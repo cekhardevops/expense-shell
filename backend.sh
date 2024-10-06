@@ -66,8 +66,6 @@ fi
 
 id expense &>>$LOG_FILE
 
-    echo "id expense resultt: $?"
-
 if [ $? -ne 0 ]; then
     useradd expense  &>>$LOG_FILE
     validate $? "creating expense user"
