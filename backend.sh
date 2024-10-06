@@ -49,14 +49,20 @@ echo "script started executing..."
 
 validate_user $user_id
 
-dnf module disable nodejs -y 
+dnf module disable nodejs -y  &>>$LOG_FILE
 validate $? "disable default nodejs version"
 
-dnf module enable nodejs:20 -y
+dnf module enable nodejs:20 -y  &>>$LOG_FILE
 validate $? "enable nodejs:20 version"
 
-dnf install nodejs -y
+dnf install nodejs -y  &>>$LOG_FILE
 validate $? "installing nodejs"
 
-useradd expense
-validate $? "creating expense user"
+id expense
+
+if [ $? -ne 0 ]; then
+    useradd expense  &>>$LOG_FILE
+    validate $? "creating expense user"
+else
+    validate $? "user already existed"
+fi
