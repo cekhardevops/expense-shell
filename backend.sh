@@ -78,14 +78,14 @@ curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expen
 validate $? "source code downloading"
 cd /app
 rm -rf /app/*
-unzip /tmp/backend.zip 
+unzip /tmp/backend.zip &>>$LOG_FILE
 
 npm install &>>$LOG_FILE
 validate $? "installing npm build tool"
 
 cp /home/ec2-user/expense-shell/backend.service /etc/systemd/system/backend.service &>>$LOG_FILE
 
-dns install mysql -y &>>$LOG_FILE
+dnf install mysql -y &>>$LOG_FILE
 validate $? "mysql client installing"
 
 mysql -h mysql.devsecmlops.online -uroot -pExpenseApp@1 < /app/schema/backend.sql &>>$LOG_FILE 
