@@ -93,8 +93,9 @@ mysql -h mysql.devsecmlops.online -uroot -pExpenseApp@1 < /app/schema/backend.sq
 systemctl daemon-reload &>>$LOG_FILE
 validate $? "reloaded deamon"
 
-systemctl restart backend &>>$LOG_FILE
-validate $? "started backend service"
-
 systemctl enable backend &>>$LOG_FILE
 validate $? "Enabled backend"
+
+systemctl restart backend &>>$LOG_FILE
+validate $? "Restarted backend service"
+
