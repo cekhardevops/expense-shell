@@ -53,7 +53,7 @@ if [ $? -eq 0 ]; then
     exit 1;
 fi
 
-dnf install mysql-server -y 
+dnf install mysql-server -y &>>$LOG_FILE
 validate $? "installing Mysql server"
 
 systemctl enable mysqld &>>$LOG_FILE
