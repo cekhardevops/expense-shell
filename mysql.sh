@@ -21,6 +21,7 @@ validate_user(){
 validate(){
     if [ $1 -ne 0 ]; then
         log_error "$1 is FAILED."
+        exit 1;
     else
         log_info "$2 is SUCCESS"
     fi
@@ -68,7 +69,7 @@ validate_user $user_id
 #     exit 1;
 # fi
 
-dnf install mysql-server -y 
+dnf install mysql-server -y &>>$LOG_FILE
 validate $? "installing Mysql server"
 
 systemctl enable mysqld &>>$LOG_FILE
