@@ -1,6 +1,6 @@
 #!/bin/bash
 
-LOGS_DIR="/var/log/shell-script"
+LOGS_DIR="/var/log/expense"
 LOG_FILE_NAME=$(echo $0 | cut -d "." -f1)
 TIMESTAMP=$(date +"%Y-%m-%d_%H-%M")
 LOG_FILE=${LOGS_DIR}/${LOG_FILE_NAME}-${TIMESTAMP}.log
@@ -68,13 +68,13 @@ if [ $? -ne 0 ]; then
     exit 1;
 fi
 
-dnf install mysql-server -y &>>"$LOG_FILE"
+dnf install mysql-server -y &>>$LOG_FILE
 validate $? "installing Mysql server"
 
-systemctl enable mysqld &>>"$LOG_FILE"
+systemctl enable mysqld &>>$LOG_FILE
 validate $? "Enabling mysql service"
 
-systemctl start mysqld &>>"$LOG_FILE"
+systemctl start mysqld &>>$LOG_FILE
 validate $? "Starting mysql service"
 
 mysql_secure_installation --set-root-pass ExpenseApp@1
