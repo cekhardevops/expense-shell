@@ -63,7 +63,7 @@ log_error() {
 validate_user $user_id
 server
 dnf list installed mysql-server &>>$LOG_FILE
-if [ $? -ne 0 ]; then
+if [ $? -eq 0 ]; then
     log_info "mysql-server aleady installed"
     exit 1;
 fi
